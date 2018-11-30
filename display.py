@@ -3,10 +3,23 @@
 from progressbar import ProgressBar, Percentage, Bar, Timer, UnknownLength
 from tabulate import tabulate
 
-__all__ = ['show', 'transpose', 'defaultPB']
+__all__ = ['show', 'transpose', 'defaultPB', 'range']
 
 def defaultPB(size):
 	return ProgressBar(widgets=[Percentage(), Bar(), Timer()], max_value=size)
+
+from builtins import range as orange
+def range(*args, bar=False, **kargs):
+	if not bar:
+		return orange(*args)
+
+	if len(args) == 1:
+		size = args[0]
+	elif len(args) == 2:
+		size = args[1] - args[0]
+	elif len(args) == 3:
+		size = ( args[1] - args[0] ) // args[2]
+	return defaultPB(size)(orange(*args))
 
 def show(data, limit = False, truncate = False, toPrint = True):
 	if limit == False:

@@ -3,7 +3,7 @@ from functools import partial
 import argparse
 # pathlib helpers
 
-__all__ = ['Path', 'Dir', 'EPath', 'NEPath', 'AutoDir']
+__all__ = ['Path', 'EDir', 'EPath', 'NEPath', 'AutoDir']
 
 def Path(s=None, exists=None, dir=None, prefix=None, **kargs ):
     if s is None:
@@ -19,7 +19,7 @@ def Path(s=None, exists=None, dir=None, prefix=None, **kargs ):
         raise argparse.ArgumentTypeError("%s is%s a exsited directory."%(p, " not" if dir else "") )
     return p
 
-Dir = partial(Path, dir=True)
+EDir = partial(Path, dir=True)
 EPath = partial(Path, exists=True)
 NEPath = partial(Path, exists=False)
 
